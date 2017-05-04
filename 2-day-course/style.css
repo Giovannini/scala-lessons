@@ -1,0 +1,16 @@
+pre code {
+  font-size: 175%;
+}
+
+div.quote {
+
+}
+
+div.quote p {
+  font-style: italic;
+}
+
+div.quote p.author {
+  font-weight: 600;
+  font-style: normal;
+}

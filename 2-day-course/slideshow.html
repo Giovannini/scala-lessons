@@ -1,0 +1,1364 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Formation Scala</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+pre code {
+  font-size: 175%;
+}
+
+div.quote {
+
+}
+
+div.quote p {
+  font-style: italic;
+}
+
+div.quote p.author {
+  font-weight: 600;
+  font-style: normal;
+}
+
+  </style>
+    <script async src="http://localhost:35729/livereload.js"></script>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="formation-scala">Formation Scala</h1>
+<h2 id="d-butant">Débutant</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="overview">Overview</h3>
+<p>TODO</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="why-scala-">Why Scala ?</h3>
+<div class="quote">
+  <p>A scalable programming language is one in which the same concepts can
+  describe small as well as large parts.</p>
+  <p class="author">Martin Odersky</p>
+</div></section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="scala-en-quelques-mots">Scala en quelques mots</h3>
+<ul>
+<li>Langage de programmation généraliste</li>
+<li>Orienté objet</li>
+<li>Type statiquement</li>
+<li>Multi-paradigme: programmation fonctionnelle et impérative</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="hello-world">Hello world</h3>
+<pre><code>object Main extends App {
+  println(&quot;Hello world!&quot;)
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="une-syntaxe-flexible">Une syntaxe flexible</h3>
+<pre><code>&quot;The &#39;Hello world&#39; string&quot; should {
+  &quot;contain 11 characters&quot; in {
+    &quot;Hello world&quot; must have size 11
+  }
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="une-syntaxe-flexible">Une syntaxe flexible</h3>
+<pre><code>class PingPong extends Actor {
+  def receive = {
+    case x =&gt; sender ! x
+  }
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="une-syntaxe-flexible">Une syntaxe flexible</h3>
+<pre><code>class ExprParser extends RegexParsers {
+  def factor = &quot;[0-9]+&quot;.r | &quot;(&quot;~expr~&quot;)&quot;
+  def term = factor~(&quot;*&quot; | &quot;/&quot;)~factor
+  def expr = term~(&quot;+&quot; | &quot;-&quot;)~term
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h1 id="lan-ons-nous">Lançons-nous</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="read-eval-print-loop-repl-">Read­-Eval-­Print Loop (REPL)</h3>
+<p>La façon la plus rapide d&#39;essayer Scala est via la REPL:</p>
+<pre><code>$ sbt console
+Welcome to Scala 2.11.8 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_65).
+Type in expressions for evaluation. Or try :help.
+
+scala&gt;</code></pre>
+<p>(Vérifier que <a href="http://www.scala-sbt.org/">SBT</a> est installé sur le système.)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h1 id="des-valeurs-et-des-types">Des valeurs et des types</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="de-quoi-est-fait-un-programme">De quoi est fait un programme</h3>
+<ul>
+<li>Un programme est l&#39;expression d&#39;une solution à un problème donné</li>
+<li>Nous avons besoin d&#39;une façon d&#39;exprimer et de se référer aux éléments du notre problème</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="les-l-ments-les-plus-simple-d-un-programme-des-valeurs-lit-rales">Les éléments les plus simple d&#39;un programme: des valeurs litérales</h3>
+<p><i>Quelle est la réponse à la vie, l&#39;univers et le reste ?</i></p>
+<pre><code>scala&gt; 42
+res0: Int = 42</code></pre>
+<p><i>Comment est-ce que je m&#39;appelle ?</i></p>
+<pre><code>scala&gt; &quot;Thomas&quot;
+res1: String = Thomas</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="les-l-ments-les-plus-simple-d-un-programme-des-valeurs-lit-rales">Les éléments les plus simple d&#39;un programme: des valeurs litérales</h3>
+<ul>
+<li><i>42</i> et <i>&quot;Thomas&quot;</i> sont des <b>valeurs</b> composées d&#39;une unique <b>valeur litérale</b>.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="composer-des-valeurs-les-op-rateurs">Composer des valeurs: les opérateurs</h3>
+<p><i>Combien font deux et trois ?</i></p>
+<pre><code>scala&gt; 2 + 3
+res2: Int = 5</code></pre>
+<p><i>Quel est le résultat de la concaténation des chaînes de caractère &quot;Hello &quot; et &quot;world&quot; ?</i></p>
+<pre><code>scala&gt; &quot;Hello &quot; + &quot;world&quot;
+res3: String = Hello world</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="composer-des-valeurs-les-appels-de-m-thode">Composer des valeurs: les appels de méthode</h3>
+<p><i>Quelle est la taille du texte &quot;Hello world&quot; ?</i></p>
+<pre><code>scala&gt; &quot;Hello world&quot;.size
+res4: Int = 11</code></pre>
+<ul>
+<li>Les <b>méthodes</b> sont appliquées à des valeurs.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="composer-des-valeurs-les-appels-de-m-thode">Composer des valeurs: les appels de méthode</h3>
+<p><i>Quel est le rang des nombres de 1 à 10 ?</i></p>
+<pre><code>scala&gt; 1.to(10)
+res5: scala.collection.immutable.Range.Inclusive =
+  Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</code></pre>
+<ul>
+<li>Les <b>méthodes</b> peuvent avoir des paramètres. On les fournis entre parenthèses.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="les-op-rateurs-sont-des-m-thodes">Les opérateurs sont des méthodes</h3>
+<p>En réalité, les opérateurs sont juste des méthodes avec des noms symboliques.</p>
+<pre><code>scala&gt; 3.+(2)
+res6: Int = 5</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="les-op-rateurs-sont-des-m-thodes">Les opérateurs sont des méthodes</h3>
+<p>La syntaxe infixe peut aussi être utilisée avec des méthodes non symboliques.</p>
+<pre><code>scala&gt; 1 to 10
+res7: scala.collection.immutable.Range.Inclusive =
+  Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="les-op-rateurs-sont-des-m-thodes">Les opérateurs sont des méthodes</h3>
+<p>L&#39;unification des méthodes et des opérateurs rendent le langage plus simple.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<ul>
+<li>Utiliser la méthode <code>abs</code> pour récupérer la valeur absolue de <code>-42</code>.</li>
+<li>Utiliser la méthode <code>toUpperCase</code> pour transformer le texte <code>Hello world!</code> en majuscules.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="un-niveau-d-abstraction-suppl-mentaire-les-valeurs-non-litt-rales">Un niveau d&#39;abstraction supplémentaire: les valeurs non littérales</h3>
+<p>Comment définir quelque chose de plus haut niveau comme des images ?</p>
+<pre><code>scala&gt; Circle(10)
+res8: doodle.core.Image.Circle = Circle(10.0)</code></pre>
+<p><code>Circle</code> est un constructeur qui prend un paramètre (le rayon) et retourne un objet représentant un cercle.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="manipuler-les-images">Manipuler les images</h3>
+<p>Afficher une image avec <code>draw</code>:</p>
+<pre><code>scala&gt; Rectangle(30, 50).draw</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><h3 id="manipuler-les-images">Manipuler les images</h3>
+<p>Mettre en page les images avec <code>beside</code>, <code>above</code>, <code>under</code> :</p>
+<pre><code>scala&gt; Rectangle(60, 100) beside Circle(30)
+res10: doodle.core.Image = Beside(Rectangle(60.0,100.0),Circle(30.0))
+scala&gt; res10.draw</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="types">Types</h3>
+<p>Toutes les valeurs ont un <b>type</b></p>
+<ul>
+<li><code>42</code> a le type <code>Int</code></li>
+<li><code>&quot;Thomas&quot;</code> a le type <code>String</code></li>
+</ul>
+<p>Les types permettent de classifier les valeurs</p>
+<ul>
+<li><code>0</code> et <code>42</code> sont du type <code>Int</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="les-types-sont-l-pour-nous-guider">Les types sont là pour nous guider</h3>
+<p>Les vérifications de type interdisent de combiner les valeurs d&#39;une mauvaise façon</p>
+<pre><code>&lt;console&gt;:24: error: type mismatch;
+ found   : String(&quot;10&quot;)
+ required: Int
+       1 to &quot;10&quot;
+            ^</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="les-types-sont-l-pour-nous-guider">Les types sont là pour nous guider</h3>
+<p>L&#39;exécution d&#39;un programme se fait en deux étapes:</p>
+<ul>
+<li>Le compilateur transforme le code Scala en bytecode Java</li>
+<li>La JVM exécute le bytecode</li>
+</ul>
+<p>La vérification des types se fait lors de la première étape: les erreurs sont détectées rapidement.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-28">
+    <section class="slide-content"><h3 id="des-types-communs">Des types communs</h3>
+<ul>
+<li><code>Int</code> : un entier signé de 32­bit</li>
+<li><code>Double</code> : un flottant de 64­bit IEEE­754 (e.g. 12.34).</li>
+<li><code>Boolean</code> : une valeur booléenne (true et false)</li>
+<li><code>String</code> : texte</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-29">
+    <section class="slide-content"><h3 id="l-absence-de-type">L&#39;absence de type</h3>
+<ul>
+<li>Les méthodes comme <code>println</code> et <code>draw</code> ne retournent pas de valeur significative.</li>
+<li>A la place, elles exécutent des effets de bords (side-effect)</li>
+<li>Leur type de retour est <code>Unit</code></li>
+<li>Il n&#39;existe qu&#39;une seule valeur possible pour <code>Unit</code>: <code>()</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-30">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Dessiner un point d&#39;exclamation.</p>
+<p><img src="./images/question-mark.png" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-31">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Dessiner une haltère.</p>
+<p><img src="./images/barbell.png" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-32">
+    <section class="slide-content"><h3 id="manipuler-les-images-avec-des-couleurs">Manipuler les images avec des couleurs</h3>
+<p>On peut utiliser la commande <code>fillColor</code> pour remplir une <code>Image</code> avec une couleur.</p>
+<pre><code>(Rectangle(30, 80) fillColor Color.black).draw</code></pre>
+<p>On a par exemple accès aux couleurs <code>red</code>, <code>blue</code>, <code>green</code>, <code>black</code>, <code>white</code>, <code>gray</code> et <code>brown</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-33">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Ajouter de la couleur à notre haltère.</p>
+<p><img src="./images/colored-barbell.png" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h1 id="les-d-finitions">Les définitions</h1>
+<h2 id="un-outil-contre-la-r-p-tition">Un outil contre la répétition</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="d-finitions-de-valeurs">Définitions de valeurs</h3>
+<p>Considérons le programme suivant:</p>
+<pre><code>(
+  (Rectangle(25, 100) fillColor Color.black) beside
+  (Rectangle(200, 20) fillColor Color.grey) beside
+  (Rectangle(25, 100) fillColor Color.black)
+).draw</code></pre>
+<ul>
+<li>Il est compliqué à <b>lire</b> car l&#39;expression est longue.</li>
+<li>Il est compliqué à maintenir puisque pour changer le poids de nos haltères, nous devons changer le code à deux endroits.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-36">
+    <section class="slide-content"><h3 id="d-finitions-de-valeurs">Définitions de valeurs</h3>
+<pre><code>val weight = Rectangle(25, 100) fillColor
+  Color.black
+val bar = Rectangle(200, 20) fillColor Color.grey
+
+(weight beside bar beside weight).draw</code></pre>
+<p>Les deux premières lignes sont des <b>définitions de valeur</b>.</p>
+<ul>
+<li>Elles introduisent des <b>noms</b>.</li>
+<li>Elles <b>lient</b> ces noms aux valeurs à droite du <code>=</code>.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-37">
+    <section class="slide-content"><h3 id="d-finitions-de-valeurs">Définitions de valeurs</h3>
+<pre><code>val weight = Rectangle(25, 100) fillColor
+  Color.black
+val bar = Rectangle(200, 20) fillColor Color.grey
+
+(weight beside bar beside weight).draw</code></pre>
+<p>Les noms ainsi créés peuvent être utilisés comme toute autre valeur.</p>
+<p>Notons que le type est inféré par le compilateur.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-38">
+    <section class="slide-content"><h3 id="d-finitions-de-valeurs">Définitions de valeurs</h3>
+<pre><code>val weight = Rectangle(50, 100) fillColor
+  Color.black
+val bar = Rectangle(200, 20) fillColor Color.grey
+
+(weight beside bar beside weight).draw</code></pre>
+<p>Changer le poids ne demande un changement qu&#39;à un seul endroit.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-39">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Dessiner deux haltères une au dessus de l&#39;autre.
+L&#39;une est légère, l&#39;autre lourde.</p>
+<p><img src="./images/twoBarbells.png" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-40">
+    <section class="slide-content"><h3 id="le-principe-d-abstraction">Le principe d&#39;abstraction</h3>
+<div class="quote">
+  <p>
+    Chaque fonctionnalité d&#39;un programme ne doit être implémentée qu&#39;à un seul endroit dans le code.
+  </p>
+  <p>
+    Aux endroits où des fonctions similaires sont portées par des bouts de code différents, il est souvent bénéfique de les combiner en une seul, en abstrayant les parties variables.
+  </p>
+  <p class="author">
+    Benjamin C. Pierce. Types and Programming Languages. MIT Press 2002.
+  </p>
+</div></section>
+  </div>
+  <div class="slide hidden" id="slide-41">
+    <section class="slide-content"><h3 id="d-finitions-de-m-thodes">Définitions de méthodes</h3>
+<pre><code>val heavyWeight =
+  Rectangle(30, 100) fillColor Color.black
+val smallWeight =
+  Rectangle(15, 100) fillColor Color.black
+val bar = Rectangle(200, 20) fillColor Color.grey</code></pre>
+<p>Il existe beaucoup de similarités entre <code>heavyWeight</code> et <code>smallWeight</code>.
+Il nous faudrait une façon de généraliser cela.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-42">
+    <section class="slide-content"><h3 id="d-finitions-de-m-thodes">Définitions de méthodes</h3>
+<pre><code>def weight(width: Int) =
+  Rectangle(width, 100) fillColor Color.black
+val heavyWeight = weight(30)
+val smallWeight = weight(15)</code></pre>
+<p>La première ligne est une définition de méthode. Contrairement à la définition de valeurs, elle peut avoir des paramètres.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-43">
+    <section class="slide-content"><h3 id="d-finitions-de-m-thodes">Définitions de méthodes</h3>
+<pre><code>def weight(width: Int) =
+  Rectangle(width, 100) fillColor Color.black
+val heavyWeight = weight(30)
+val smallWeight = weight(15)</code></pre>
+<p>Les paramètres sont spécifiés entre parenthèses et séparés par des virgules.</p>
+<p>Le type des paramètres doit être donné explicitement.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-44">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Définir une méthode barbell qui prend en paramètre une image de poids et qui retourne l&#39;image d&#39;une haltère avec ce poids.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-45">
+    <section class="slide-content"><h3 id="un-r-sum-de-la-situation">Un résumé de la situation</h3>
+<p>Scala nous donne des moyens de:</p>
+<ul>
+<li>écrire des valeurs litérales représentant des <b>éléments simples</b> (<code>17</code>, <code>&quot;Hello&quot;</code>)</li>
+<li><b>combiner</b> ces valeurs (via des méthodes)</li>
+<li><b>abstraire</b> des expressions en introduisant un nom pour s&#39;y référer</li>
+</ul>
+<p>Ces moyens d&#39;abstractions et de composition nous donnent un pouvoir d&#39;expression pour généraliser des problèmes et les combiner.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-46">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Dessiner 5 haltères les unes au dessus des autres.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-47">
+    <section class="slide-content"><h3 id="des-boucles-et-des-conditions">Des boucles et des conditions</h3>
+<pre><code>val unit = barbell(weight(15))
+val barbell1 = unit
+val barbell2 = unit above barbell1
+val barbell3 = unit above barbell2
+val barbell4 = unit above barbell3
+val barbell5 = unit above barbell4</code></pre>
+<p>Pour construire <code>barbellN</code>, on rajoute <code>unit</code> au dessus de <code>barbellN-1</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-48">
+    <section class="slide-content"><h3 id="des-boucles-et-des-conditions">Des boucles et des conditions</h3>
+<p>Pour généraliser cela, on veut exprimer quelque chose de la sorte:</p>
+<p><code>barbellN</code>:</p>
+<ul>
+<li><code>unit</code> si n = 1</li>
+<li><code>unit</code> above <code>barbellN-1</code> sinon</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-49">
+    <section class="slide-content"><h3 id="les-conditions">Les conditions</h3>
+<pre><code>val unit = barbell(weight(15))
+def barbells(n: Int) =
+  if (n == 1) unit
+  else unit above ???</code></pre>
+<p>On peut écrire une expression conditionnelle en utilisant <code>if</code> et <code>else</code>.
+Le résultat de cette expression dépend de la valeur booléenne qu&#39;on lui donne.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-50">
+    <section class="slide-content"><h3 id="les-expressions-bool-ennes">Les expressions booléennes</h3>
+<p>Les booléens littéraux sont <code>true</code> et <code>false</code>.</p>
+<p>Il existe des opérateurs de comparaisons: <code>17 == 17</code>, <code>17 != 42</code>, <code>17 &lt; 42</code>, ...</p>
+<p>Les expressions booléennes peuvent être combinées avec les opérateurs <code>||</code> (disjonction), <code>&amp;&amp;</code> (conjonction) et <code>!</code> (négation).</p>
+<pre><code>true || false == !false</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-51">
+    <section class="slide-content"><h3 id="retour-notre-probl-me">Retour à notre problème</h3>
+<pre><code>val unit = barbell(weight(15))
+def barbells(n: Int) =
+  if (n == 1) unit
+  else unit above ???</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-52">
+    <section class="slide-content"><h3 id="les-m-thodes-r-cursives">Les méthodes récursives</h3>
+<pre><code>val unit = barbell(weight(15))
+def barbells(n: Int): Image =
+  if (n == 1) unit
+  else unit above barbell(n-1)</code></pre>
+<p>Le type de retour pour une méthode récursive est obligatoire.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-53">
+    <section class="slide-content"><h3 id="d-finitions-de-niveau-sup-rieure-et-port-e-lexicale">Définitions de niveau supérieure et portée lexicale</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-54">
+    <section class="slide-content"><h3 id="d-finitions-d-objets">Définitions d&#39;objets</h3>
+<p>Dans un programme Scala, les valeurs et méthodes doivent être définies dans une définition de niveau supérieure.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-55">
+    <section class="slide-content"><h3 id="d-finitions-d-objets">Définitions d&#39;objets</h3>
+<pre><code>object Loops {
+  def barbells(n: Int): Image = ???
+}</code></pre>
+<p>Ce code contient une <b>définition d&#39;objet</b> qui introduit le nom <code>Loops</code>.
+<code>Loops</code> réfère à un objet qui possède une méthode: <code>barbells</code>.
+On peut accéder à la méthode <code>barbells</code> en dehors en utilisant la notation par point: <code>Loops.barbells(17)</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-56">
+    <section class="slide-content"><h3 id="packages">Packages</h3>
+<pre><code>package core
+object Loops { ... }</code></pre>
+<pre><code>package std
+object Lists { ... }</code></pre>
+<p>Les définitions d&#39;objets peuvent être organisées en <b>packages</b>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-57">
+    <section class="slide-content"><h3 id="visibilit-entre-packages">Visibilité entre packages</h3>
+<pre><code>package core
+object Loops {
+  def barbells(n: Int): Image = ???
+}</code></pre>
+<hr>
+<pre><code>package core
+object Definition {
+  Loops.barbells(17)
+}</code></pre>
+<p>Les noms définis dans un package sont visibles dans le code défini dans le même package.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-58">
+    <section class="slide-content"><h3 id="visibilit-entre-packages">Visibilité entre packages</h3>
+<pre><code>package core
+object Loops {
+  def barbells(n: Int): Image = ???
+}</code></pre>
+<hr>
+<pre><code>package std
+object Definition {
+  core.Loops.barbells(17)
+}</code></pre>
+<p>Les noms définis dans un package ne sont pas visibles dans le code défini dans un autre package. Ils doivent être <b>entièrement qualifiés</b> pour être résolus par le compilateur.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-59">
+    <section class="slide-content"><h3 id="imports">Imports</h3>
+<pre><code>package std
+
+import core.Loops
+
+object Definition {
+  Loops.barbells(17)
+}</code></pre>
+<p>Le mot clef <code>import</code> permet d&#39;accéder aux noms sans devoir les qualifier.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-60">
+    <section class="slide-content"><h3 id="blocs-et-d-finitions-locales">Blocs et définitions locales</h3>
+<pre><code>def barbells(n: Int): Image = {
+  val unit = barbell(weight(15))
+  if (n == 1) unit
+  else unit above barbells(n - 1)
+}</code></pre>
+<p>Les valeurs et méthodes peuvent aussi être définies dans un <b>bloc</b>. Ces définitions ne sont pas accessibles en dehors.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-61">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Créer une méthode <code>sierpinski</code> qui prend en paramètre un entier <code>n</code> et qui retourne l&#39;image d&#39;un trianle comme suit:
+<img src="./images/sierpinski/1.png" />
+<img src="./images/sierpinski/2.png" />
+<img src="./images/sierpinski/3.png" />
+<img src="./images/sierpinski/5.png" /></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-62">
+    <section class="slide-content"><h3 id="mod-le-d-valuation">Modèle d&#39;évaluation</h3>
+<pre><code>val foo = 1 + 1
+def bar = 1 + 1</code></pre>
+<p>Quelle est la différence entre <code>foo</code> et <code>bar</code> ?</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-63">
+    <section class="slide-content"><h3 id="mod-le-d-valuation">Modèle d&#39;évaluation</h3>
+<pre><code>val foo = 1 + 1
+def bar = 1 + 1</code></pre>
+<ul>
+<li>La première est évaluée une seuls fois, au moment de la définition. <code>foo</code> réfère donc à l&#39;expression <code>2</code>.</li>
+<li>La seconde est évaluée à chaque fois qu&#39;elle est appelée. <code>bar</code> réfère donc à l&#39;expression <code>1 + 1</code>.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-64">
+    <section class="slide-content"><h3 id="terminaison">Terminaison</h3>
+<pre><code>def loop: Nothing = loop</code></pre>
+<p>Est-on certain qu&#39;un programme va se terminer ?</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-65">
+    <section class="slide-content"><h3 id="ecrire-un-programme-autonome">Ecrire un programme autonome</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-66">
+    <section class="slide-content"><h3 id="ecrire-un-programme-autonome">Ecrire un programme autonome</h3>
+<p>Ecrivons le programme suivant dans un <code>Main.scala</code>:</p>
+<pre><code>object Main extends App {
+  println(&quot;Hello world!&quot;)
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-67">
+    <section class="slide-content"><h3 id="ecrire-un-programme-autonome">Ecrire un programme autonome</h3>
+<p>Compilons-le:</p>
+<pre><code>$ scalac Main.scala</code></pre>
+<p>Lançons-le:</p>
+<pre><code>$ scala Main
+Hello world!</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-68">
+    <section class="slide-content"><h3 id="scaling-le-processus-de-build">Scaling le processus de build</h3>
+<ul>
+<li>Que se passe-t-il si le programme a 100 fichiers sources ?</li>
+<li>Comment faire pour ne recompiler que les sources impactées par un changement donné ?</li>
+<li>Que faire si le projet dépend d&#39;une librairie tierce ?</li>
+<li>Comment gérer le cycle de vie entier du projet (tests, packaging, publication, etc) ?</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-69">
+    <section class="slide-content"><h3 id="sbt">SBT</h3>
+<p><a href="http://www.scala-sbt.org/">SBT</a> est un outil de build pour des projets Scala.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-70">
+    <section class="slide-content"><h3 id="sbt-getting-started">SBT: Getting started</h3>
+<ul>
+<li>Lancer <code>$ sbt</code> depuis le répertoire du projet pour ouvrir le prompt SBT</li>
+<li>Ecrire <code>$ sbt &lt;commande&gt;</code> depuis le répertoire du projet pour lancer une commande SBT
+depuis le terminal.<ul>
+<li><code>run</code> pour lancer le projet</li>
+<li><code>console</code> pour ouvrir un REPL dans le contexte du projet</li>
+<li><code>test</code> pour lancer les tests du projet</li>
+<li><code>compile</code> pour compiler le projet, sans le lancer</li>
+</ul>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-71">
+    <section class="slide-content"><h3 id="sbt-getting-started">SBT: Getting started</h3>
+<p>Le processus de build du projet est défini dans un fichier <code>build.sbt</code>.
+Il défini essentiellement les <strong>paramètres</strong> du projet.</p>
+<pre><code>name := &quot;scala-course&quot;
+
+scalaVersion := &quot;2.11.8&quot;
+
+libraryDependencies +=
+  &quot;com.chuusai&quot; %% &quot;shapeless&quot; % &quot;2.3.0&quot;</code></pre>
+<p>Les valeurs de paramètre sont des expressions Scala.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-72">
+    <section class="slide-content"><h3 id="mod-liser-le-monde">Modéliser le monde</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-73">
+    <section class="slide-content"><h3 id="mod-liser-le-monde">Modéliser le monde</h3>
+<p>Considérons la méthode suivante qui créé une haltère:</p>
+<pre><code>def barbell(load: Int, length: Int): Image = {
+  val weight =
+    Rectangle(load, 100) fillColor Color.black
+  val bar =
+    Rectangle(length, 20) fillColor Color.grey
+  weight beside bar beside weight
+}
+val lightBarbell = barbell(10, 180)
+val heavyBarbell = barbell(20, 200)</code></pre>
+<p>On ne peut pas faire grand chose d&#39;autre que de la dessiner.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-74">
+    <section class="slide-content"><h3 id="mod-liser-le-monde">Modéliser le monde</h3>
+<p>Comment, par exemple, définir une haltère qui est plus lourde qu&#39;une autre ?</p>
+<pre><code>def weigh(barbell: Image): Image = ???</code></pre>
+<p>Modéliser les haltères comme des images les rend compliqués à manipuler.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-75">
+    <section class="slide-content"><h3 id="mod-liser-le-monde">Modéliser le monde</h3>
+<pre><code>def weighLoad(load: Int) = load + 10
+def weighLength(length: Int) = length + 20
+
+val lightBarbellLoad = 10
+val lightBarbellLength = 180
+
+val heavyBarbellLoad = weighLoad(lightBarbellLoad)
+val heavyBarbellLength = weighLength(lightBarbellLength)</code></pre>
+<p>Il s&#39;agit d&#39;une approche assez compliqué d&#39;utilisation...</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-76">
+    <section class="slide-content"><h3 id="les-case-class">Les case class</h3>
+<pre><code>case class Barbell(load: Int, length: Int) {
+  def weigh: Barbell = Barbell(load + 10, length + 20)
+}
+
+val lightBarbell = Barbell(10, 180)
+val heavyBarbell = lightBarbell.weigh</code></pre>
+<p>Ce code contient une définition de <strong>case class</strong>, qui introduit:</p>
+<ul>
+<li>le <strong>type</strong> <code>Barbell</code></li>
+<li>le <strong>constructeur</strong> <code>Barbell</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-77">
+    <section class="slide-content"><h3 id="les-case-class">Les case class</h3>
+<pre><code>case class Barbell(load: Int, length: Int) {
+  def weigh: Barbell = Barbell(load + 10, length + 20)
+}
+
+val lightBarbell = Barbell(10, 180)
+val heavyBarbell = lightBarbell.weigh</code></pre>
+<p>Le type <code>Barbell</code> a trois membres: <code>load</code>, <code>length</code>, et <code>weigh</code>.
+<code>lightBarbell</code> et <code>heavyBarbell</code> sont des <strong>instances</strong> de <code>Barbell</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-78">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Implémenter la fonction</p>
+<pre><code>def barbellImage(barbell: Barbell): Image = ???</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-79">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Une haltère est un moyen de musculation.
+Considérons un autre outil:</p>
+<p><img src="./images/mat.png" alt="Mat"></p>
+<p>Un matelas a une largeur et une longueur. Définissons une <code>case class</code> pour lui.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-80">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Disons qu&#39;il n&#39;existe dans notre monde que ces deux moyen de se muscler.
+Comment écrire une fonction <code>fitnessDeviceImage</code> qui prend en paramètre un de ces moyens en
+paramètre et qui retourne une image de celui-ci ?</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-81">
+    <section class="slide-content"><h3 id="sealed-trait">Sealed trait</h3>
+<p>Comment exprimer le fait qu&#39;un moyen de musculation peut être un matelas, une haltère et
+rien d&#39;autre ?</p>
+<pre><code>sealed trait FitnessDevice
+case class Barbell(load: Int, length: Int) extends FitnessDevice
+case class Mat(width: Int, length: Int) extends FitnessDevice</code></pre>
+<p>Ce code contient la définition d&#39;un <strong>sealed trait</strong>, qui introduit le <strong>type</strong> <code>FitnessDevice</code>.</p>
+<p>Les définitions de <code>case class</code> qui étendent <code>FitnessDevice</code> définissent les variantes possibles
+de <code>FitnessDevice</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-82">
+    <section class="slide-content"><h3 id="sealed-trait">Sealed trait</h3>
+<p>Comment exprimer le fait qu&#39;un moyen de musculation peut être un matelas, une haltère et
+rien d&#39;autre ?</p>
+<pre><code>sealed trait FitnessDevice
+case class Barbell(load: Int, length: Int) extends FitnessDevice
+case class Mat(width: Int, length: Int) extends FitnessDevice</code></pre>
+<p><em>Les variantes d&#39;un <code>sealed trait</code> doivent se trouver dans le même fichier source.</em></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-83">
+    <section class="slide-content"><h3 id="pattern-matching">Pattern matching</h3>
+<p>Il est possible de manipuler les <code>case classes</code> et les <code>sealed trait</code> en utilisant
+le <strong>pattern matching</strong>.</p>
+<pre><code>def name(fitnessDevice: FitnessDevice): String =
+  fitnessDevice match {
+    case Barbell(load, length) =&gt; &quot;Barbell&quot;
+    case Mat(width, length) =&gt; &quot;Mat&quot;
+  }</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-84">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Ecrire une fonction <code>fitnessDeviceImage</code> qui prend en paramètre un de ces moyens en
+paramètre et qui retourne une image de celui-ci.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-85">
+    <section class="slide-content"><h3 id="mod-liser-le-monde">Modéliser le monde</h3>
+<p>La combinaison de <code>case class</code> et de <code>sealed trait</code> donne un moyen pratique de modéliser
+l&#39;information en terme de relation <strong>est</strong> ou <strong>a</strong>:</p>
+<ul>
+<li>&quot;un moyen de musculation <strong>est</strong> une haltère ou un matelas&quot;<ul>
+<li><em>Le sealed trait FitnessDevice est étendu par Barbell et Mat</em></li>
+</ul>
+</li>
+<li>&quot;une haltère <strong>a</strong> un poids et une longueur&quot;<ul>
+<li><em>La case class Barbell a les membres load et length</em></li>
+</ul>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-86">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Modéliser le domaine suivant en Scala:</p>
+<ul>
+<li>Une forme géométrique est soit un cercle, soit un rectanle, soit un triangle</li>
+<li>Un cercle a un rayon</li>
+<li>Un rectange a une longueur et une largeur</li>
+<li>Un triangle a une longueur et une hauteur</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-87">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Modéliser le domaine suivant en Scala:</p>
+<ul>
+<li>Un cours a un nom et un niveau de difficulté</li>
+<li>Un niveau de difficulté est soit &quot;Débutant&quot;, &quot;Intermédiaire&quot; ou &quot;Avancé&quot;</li>
+</ul>
+<p>Peut-on définir un cours appelé &quot;Programmer en Scala&quot; destiné aux débutants ?</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-88">
+    <section class="slide-content"><h3 id="case-objects">Case objects</h3>
+<pre><code>sealed trait DifficultyLevel
+case class Beginner() extends DifficultyLevel
+case class Intermediate() extends DifficultyLevel
+case class Advanced() extends DifficultyLevel</code></pre>
+<p>Si une <code>case class</code> n&#39;a pas de paramètre, on utilise un <code>case object</code> à la place:</p>
+<pre><code>sealed trait DifficultyLevel
+case object Beginner extends DifficultyLevel
+case object Intermediate extends DifficultyLevel
+case object Advanced extends DifficultyLevel</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-89">
+    <section class="slide-content"><h3 id="r-f-r-nces-et-lectures-recommand-es">Référénces et lectures recommandées</h3>
+<ul>
+<li><b>Creative Scala</b> Underscore Consulting LLP.</li>
+<li><b>Functional Programming in Scala</b> Paul Chiusano and Rúnar Bjarnason. Manning 2013.</li>
+<li><b>Programming in Scala</b> Martin Odersky, Lex Spoon and Bill Venners.
+Artima 2010</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-90">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Thomas GIOVANNINI</h1>
+    <h3 class="github">
+      <a href="https://github.com/https://github.com/Giovannini">https://github.com/Giovannini</a>
+    </h3>
+    <h3 class="email">
+      <a href="mailto:tgi@zengularity.com">tgi@zengularity.com</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
