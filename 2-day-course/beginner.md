@@ -896,6 +896,403 @@ case object Advanced extends DifficultyLevel
 
 --
 
+### Collections standard
+
+--
+
+### Collections standard
+La librairie standard de Scala propose différents types pour rendre la manipulation de collections
+d'éléments plus simple.
+
+Cette section donne une idée rapide de ces collections standard.
+Pour plus de détails, aller sur la [documentation de l'API](http://www.scala-lang.org/api/current/scala/collection/index.html).
+
+--
+
+### Collections standard
+On peut créer une séquence d'objets avec `Seq`:
+```
+val numbers = Seq(1, 5, 3, 17)
+val numbers: Seq[Int] = Seq(1, 5, 3, 17)
+val numbers2 = Seq.empty[Int]
+```
+
+--
+
+### Collections standard
+On peut ajouter un élément au début d'une séquence avec l'opérateur `+:`:
+```
+0 +: numbers
+```
+On peut ajouter un élément au début d'une séquence avec l'opérateur `:+`:
+```
+numbers :+ 42
+```
+
+Ces fonctions **retournent une nouvelle séquence** et ne modifient pas l'objet initial.
+
+--
+
+### Collections standard
+Il est possible d'utiliser le pattern matching sur une séquence:
+```
+def size(numbers: Seq[Int]): Int = numbers match {
+  case Nil => 0
+  case n +: numbersTail => 1 + size(numbersTail)
+}
+```
+
+--
+
+### Exercice
+Définir une méthode `stack` qui prend en paramètre une séquence d'images et qui
+retourne une image qui les empile les unes sur les autres:
+```
+def stack(images: Seq[Image]): Image = ???
+```
+
+--
+
+### Exercice
+Définir une méthode `largeEnough` qui prend en paramètre une séquence de matelas et qui retourne
+leurs aires uniquement si elles sont plus grandes que 1000:
+```
+def largeEnough(mats: Seq[Mat]): Seq[Int] = ???
+```
+
+--
+
+### map
+Il est possible de transformer tous les éléments d'une séquence en utilisant `map`.
+```
+val areas: Seq[Int] =
+  mats.map(mat => mat.width * mat.length)
+```
+**`map`** prend en paramètre une fonction et retourne une séquence avec des éléments qui sont le
+résultat de la fonction appliqué à chaque élément de la séquence.
+
+--
+
+### filter
+Il est possible de filtrer les éléments d'une séquence en utilisant `filter`.
+```
+val largerThanOneHundred: Seq[Int] =
+  mats.filter(mat => mat.width > 100)
+```
+**`filter`** prend en paramètre une fonction qui retourne un booléen et retourne une séquence
+avec uniquement les éléments qui satisfont ce prédicat.
+
+--
+
+### Exercice
+Réécrire `largeEnough` en utilisant `map` et `filter`.
+
+--
+
+### flatMap
+Parfois, la fonction que l'on passe à `map` retourne aussi une `Seq`.
+```
+val duplicates(numbers: Seq[Int]) =
+  numbers.map(n => Seq(n, n))
+```
+
+--
+
+### flatMap
+Il est possible d'applatir notre résultat en utilisant la fonction `flatMap`:
+```
+val duplicates(numbers: Seq[Int]): Seq[Int] =
+  numbers.flatMap(n => Seq(n, n))
+```
+
+--
+
+### foreach
+Il est possible d'appliquer un effet de bord à notre séquence d'éléments en utilisant `foreach`:
+```
+val drawAll(images: Seq[Images]): unit =
+  images.foreach(images => image.draw)
+```
+
+--
+
+### Traversable
+Il s'agit de la collection la plus générale et propose des méthodes permettant d'itérer sur les
+éléments d'une collection, de les transformer, les filtrer, ...
+
+--
+
+### Iterable
+`Iterable[A]` étend de `Traversable[A]` et ajoute quelques méthodes comme `zip` ou `grouped`.
+```
+scala> val zipped = Iterable(1, 2, 3) zip Iterable(4, 5, 6)
+zipped: Iterable[(Int, Int)] = List((1,4), (2,5), (3,6))
+```
+
+--
+
+### Seq
+`Seq[A]` est un `Iterable[A]` dans lequel l'ordre des éléments est conservé.
+Il ajoute quelques méthodes comme `reverse`, `sorted`.
+
+--
+
+### List et Vector
+`List[A]` et `Vector[A]` sont deux implémentation de `Seq[A]` avec des caractéristiques de
+performances différentes.
+- `List[A]` a des implémentations de `head` et `tail` plus performantes
+- `Vector[A]` a des implémentations de `get` et `size` plus performantes
+
+
+--
+
+### Range, Set et Map
+- `Range` est une implémentation de `Seq[Int]` qui permet de représenter une plage d'entiers.
+- `Set[A]` est un `Iterable[A]` qui ne contient aucun élément dupliqué.
+
+--
+
+### Gestion des erreurs
+
+--
+
+### Gestion des erreurs: pourquoi ?
+Prenons la méthode suivante:
+```
+def lighten = Barbell(load - 10, length - 20)
+```
+Que se pass-t-il si les valeurs de `load` ou `length` deviennent nulles ou négatives ?
+Souahite-t-on que `lighten` soit définie pour toutes les valeurs de `Barbell` ?
+
+--
+
+### Option
+Un moyen de modéliser le fait qu'une haltère puisse ne pas avoir d'haltère plus légère est
+d'utiliser le type `Option`.
+```
+def lighten: Option[Barbell] =
+  if (load <= 15 || length <= 100) None
+  else Some(Barbell(load - 10; length - 20))
+```
+La librairie standard définie le type `Option[A]` qui modélise une potentielle valeur du type `A`.
+
+--
+
+### Option
+```
+def lighten: Option[Barbell] =
+  if (load <= 15 || length <= 100) None
+  else Some(Barbell(load - 10; length - 20))
+```
+Une `Option[A]` peut être soit:
+- `Some(a)`
+- `None`
+
+--
+
+### Exercice
+Ajouter une méthode `smaller` à notre type `Mat`:
+```
+def smaller: Option[Map] = ???
+```
+
+--
+### Utilisations communes des valeurs optionnelles
+On peut utiliser le pattern matching:
+```
+def smallerMat(mat: Mat): String =
+  mat.smaller match {
+    case Some(mat) => "There is a smaller mat."
+    case None => "There is no smaller mat."
+  }
+```
+--
+### Utilisations communes des valeurs optionnelles
+Il est possible d'utiliser `map` pour transformer une valeur pleine en une autre valeur pleine,
+en ignorant le cas `None`:
+```
+def smallerWidth(mat: Mat): Option[Int] =
+  mat.smaller.map(smallerMat => smallerMat.width)
+```
+--
+### Utilisations communes des valeurs optionnelles
+Il est possible d'utiliser `fiter` pour transformer une valeur pleine en une valeur vide, si le
+contenu ne satisfait pas le prédicat.
+```
+def keepHugeMats(maybeMat: Option[Mat]): Option[Mat] =
+  mat.filter(mat => mat.width > 100 && mat.length > 200)
+```
+--
+### Exercice
+Ecrire une fonction qui prend en paramètre un matelas, essaye de créer un matelas plus petit et
+qui retourne sont aire si elle est plus grande que 1000:
+```
+def smallerButLargeEnough(mat: Mat): Option[Int] = ???
+```
+--
+### Utilisations communes des valeurs optionnelles
+Il est possible d'utiliser `flatMap` pour applatir notre résultat:
+```
+def smallerSmaller(mat: Mat): Option[Mat] =
+  mat.smaller.flatMap(smallerMap => smallerMat.smaller)
+```
+--
+### Séquencer des calculs en manipulant des valeurs optionnelles
+Les méthodes `flatMap` et `map` peuvent être utilisées:
+```
+def lightenLightenLoad(barbell: Barbell): Option[Int] =
+  barbell.lighten.flatMap { lighterBarbell =>
+    lighterBarbell.lighten.map { lighterLighterBarbell =>
+      lighterLighterBarbell.load
+    }
+  }
+```
+--
+### Try
+`Try[A]` est similaire à `Option[A]`, à l'exception du fait qu'en cas d'erreur, il offre
+plus d'information. Il peut être:
+- Success(a)
+- Failure(throwable)
+--
+### Try
+Tout comme `Option[A]`, `Try[A]` a accès aux fonctions `map`, `filter` ou `flatMap`.
+--
+### Sucre syntaxique
+--
+### Interpolation de string
+Il s'agit d'un mécanisme pour construire des chaînes de caractères de façon dynamique:
+```
+def greet(name: String) = s"Hello, $name!"
+```
+Il suffit de préfixer la valeur littérale par un `s`.
+A l'intérieur de la chaîne, il siffit d'utiliser `$` pour insérer une valeur.
+--
+### Séquençage de `map` et `flatMap`
+Nous avons vu précédemment que `map` et `flatMap` sont des fonctions très utiles qui permettent de
+séquencer des calculs dans un contexte donné (valeurs optionnelles, collections).
+
+Elles sont si communes que Scala supporte une syntaxe plus pratique pour les utiliser, la **for
+comprehension**.
+--
+### Séquençage de `map` et `flatMap`
+```
+def lightenLightenLoad(barbell: Barbell) =
+  barbell.lighten.flatMap { lighterBarbell =>
+    lighterBarbell.lighten.map { lighterLighterBarbell =>
+      lighterLighterBarbell.load
+    }
+  }
+```
+Peut être réécrit comme suit:
+```
+def lightenLightenLoad( barbell: Barbell ) = for {
+  lighterBarbell <- barbell.lighten
+  lighterLighterBarbell <- lighterBarbell.lighten
+} yield lighterLighterBarbell.load
+```
+--
+### Traduction de `for`
+```
+for (x <- xs) yield x + 1
+```
+est traduit en
+```
+xs.map(x => x + 1)
+```
+--
+### Traduction de `for`
+```
+for (x <- xs; y <- ys) yield (x, y)
+```
+est traduit en
+```
+xs.flatMap(x => for (y <- ys) yield (x, y))
+```
+--
+### Traduction de `for`
+```
+for (x <- xs if x % 2 == 0) yield x + 1
+```
+est traduit en
+```
+for (x <- xs.filter(x => x % 2 == 0)) yield x + 1
+```
+--
+### Fonction littérales
+Dans certains cas, nous aimerions éviter de répéter le nom du paramètre littéral d'une fonction.
+```
+val inc: Int => Int = x => x + 1
+```
+Il est possible de simplifier cette expression en utilisant la notation underscore:
+```
+val inc: Int => Int = _ + 1
+```
+Si la fonction prend plusieurs paramètres, il est possuble d'utiliser autant de underscrores que
+de paramètres:
+```
+def sum(xs: Seq[Int]) = xs.foldLeft(0)(_ + _)
+```
+--
+### Tuples
+Les classes permettent de combiner plusieurs valeurs ensemble.
+Il arrive que l'on souhaite aggréger plusieurs valeurs dans définir de méthode particulières.
+Dans de tels cas, définir une classe supplémentaire est quelque chose de lourd. Il est possible
+d'utiliser des **tuples** à la place:
+```
+def euclideanDiv(dividend: Int, divisor: Int): (Int, Int) = {
+  val quotient = dividend / divisor
+  val remainder = dividend % divisor
+  (quotient, remainder)
+}
+```
+--
+### Tuples
+- Le type `(T1, ..., Tn)` est un type de tuple à n éléments, avec le ie élément ayant le type `Ti`.
+- La valeur `(t1, ..., tn)` est une valeur d'un tuple à `n` éléments.
+--
+### Tuples
+Pour récupérer le ieme élément d'un tuple, on utilise la notation `_i`:
+```
+val qr = euclidianDiv(42, 10)
+pritln(qr._1)
+pritln(qr._2)
+```
+On peut aussi utiliser le `tuple pattern` pour déstructurer un tuple:
+```
+val (q, r) = euclidianDiv(42, 10)
+```
+--
+### Named parameters
+```
+Range(1, 10, 2)
+```
+Il est parfois compliqué de se rendre compte de ce que fait une fonction simplement en la lisant.
+Il est ainsi possible d'utiliser les `named parameters` pour améliorer la lisibilité:
+```
+Range(start = 1, end = 10, step = 2)
+```
+--
+### Arguments par défaut
+```
+def square(size: Int = 50) = Rectangle(size, size)
+val defaultSquare = square() // Rectangle(50, 50)
+val customSquare = square(100) // Rectangle(100, 100)
+```
+--
+### Paramètres répétés
+```
+def stack(images: Image*): Image =
+  images.foldLeft(emptyImage)(_ on _)
+stack(Circle(50))
+stack(Circle(50), Rectangle(50, 50))
+```
+
+```
+val images = Seq(Circle(50), Circle(60))
+stack(images: _*)
+```
+--
+
 ### Référénces et lectures recommandées
 - <b>Creative Scala</b> Underscore Consulting LLP.
 - <b>Functional Programming in Scala</b> Paul Chiusano and Rúnar Bjarnason. Manning 2013.

@@ -1179,6 +1179,368 @@ case object Advanced extends DifficultyLevel</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-89">
+    <section class="slide-content"><h3 id="collections-standard">Collections standard</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-90">
+    <section class="slide-content"><h3 id="collections-standard">Collections standard</h3>
+<p>La librairie standard de Scala propose différents types pour rendre la manipulation de collections
+d&#39;éléments plus simple.</p>
+<p>Cette section donne une idée rapide de ces collections standard.
+Pour plus de détails, aller sur la <a href="http://www.scala-lang.org/api/current/scala/collection/index.html">documentation de l&#39;API</a>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-91">
+    <section class="slide-content"><h3 id="collections-standard">Collections standard</h3>
+<p>On peut créer une séquence d&#39;objets avec <code>Seq</code>:</p>
+<pre><code>val numbers = Seq(1, 5, 3, 17)
+val numbers: Seq[Int] = Seq(1, 5, 3, 17)
+val numbers2 = Seq.empty[Int]</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-92">
+    <section class="slide-content"><h3 id="collections-standard">Collections standard</h3>
+<p>On peut ajouter un élément au début d&#39;une séquence avec l&#39;opérateur <code>+:</code>:</p>
+<pre><code>0 +: numbers</code></pre>
+<p>On peut ajouter un élément au début d&#39;une séquence avec l&#39;opérateur <code>:+</code>:</p>
+<pre><code>numbers :+ 42</code></pre>
+<p>Ces fonctions <strong>retournent une nouvelle séquence</strong> et ne modifient pas l&#39;objet initial.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-93">
+    <section class="slide-content"><h3 id="collections-standard">Collections standard</h3>
+<p>Il est possible d&#39;utiliser le pattern matching sur une séquence:</p>
+<pre><code>def size(numbers: Seq[Int]): Int = numbers match {
+  case Nil =&gt; 0
+  case n +: numbersTail =&gt; 1 + size(numbersTail)
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-94">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Définir une méthode <code>stack</code> qui prend en paramètre une séquence d&#39;images et qui
+retourne une image qui les empile les unes sur les autres:</p>
+<pre><code>def stack(images: Seq[Image]): Image = ???</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-95">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Définir une méthode <code>largeEnough</code> qui prend en paramètre une séquence de matelas et qui retourne
+leurs aires uniquement si elles sont plus grandes que 1000:</p>
+<pre><code>def largeEnough(mats: Seq[Mat]): Seq[Int] = ???</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-96">
+    <section class="slide-content"><h3 id="map">map</h3>
+<p>Il est possible de transformer tous les éléments d&#39;une séquence en utilisant <code>map</code>.</p>
+<pre><code>val areas: Seq[Int] =
+  mats.map(mat =&gt; mat.width * mat.length)</code></pre>
+<p><strong><code>map</code></strong> prend en paramètre une fonction et retourne une séquence avec des éléments qui sont le
+résultat de la fonction appliqué à chaque élément de la séquence.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-97">
+    <section class="slide-content"><h3 id="filter">filter</h3>
+<p>Il est possible de filtrer les éléments d&#39;une séquence en utilisant <code>filter</code>.</p>
+<pre><code>val largerThanOneHundred: Seq[Int] =
+  mats.filter(mat =&gt; mat.width &gt; 100)</code></pre>
+<p><strong><code>filter</code></strong> prend en paramètre une fonction qui retourne un booléen et retourne une séquence
+avec uniquement les éléments qui satisfont ce prédicat.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-98">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Réécrire <code>largeEnough</code> en utilisant <code>map</code> et <code>filter</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-99">
+    <section class="slide-content"><h3 id="flatmap">flatMap</h3>
+<p>Parfois, la fonction que l&#39;on passe à <code>map</code> retourne aussi une <code>Seq</code>.</p>
+<pre><code>val duplicates(numbers: Seq[Int]) =
+  numbers.map(n =&gt; Seq(n, n))</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-100">
+    <section class="slide-content"><h3 id="flatmap">flatMap</h3>
+<p>Il est possible d&#39;applatir notre résultat en utilisant la fonction <code>flatMap</code>:</p>
+<pre><code>val duplicates(numbers: Seq[Int]): Seq[Int] =
+  numbers.flatMap(n =&gt; Seq(n, n))</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-101">
+    <section class="slide-content"><h3 id="foreach">foreach</h3>
+<p>Il est possible d&#39;appliquer un effet de bord à notre séquence d&#39;éléments en utilisant <code>foreach</code>:</p>
+<pre><code>val drawAll(images: Seq[Images]): unit =
+  images.foreach(images =&gt; image.draw)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-102">
+    <section class="slide-content"><h3 id="traversable">Traversable</h3>
+<p>Il s&#39;agit de la collection la plus générale et propose des méthodes permettant d&#39;itérer sur les
+éléments d&#39;une collection, de les transformer, les filtrer, ...</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-103">
+    <section class="slide-content"><h3 id="iterable">Iterable</h3>
+<p><code>Iterable[A]</code> étend de <code>Traversable[A]</code> et ajoute quelques méthodes comme <code>zip</code> ou <code>grouped</code>.</p>
+<pre><code>scala&gt; val zipped = Iterable(1, 2, 3) zip Iterable(4, 5, 6)
+zipped: Iterable[(Int, Int)] = List((1,4), (2,5), (3,6))</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-104">
+    <section class="slide-content"><h3 id="seq">Seq</h3>
+<p><code>Seq[A]</code> est un <code>Iterable[A]</code> dans lequel l&#39;ordre des éléments est conservé.
+Il ajoute quelques méthodes comme <code>reverse</code>, <code>sorted</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-105">
+    <section class="slide-content"><h3 id="list-et-vector">List et Vector</h3>
+<p><code>List[A]</code> et <code>Vector[A]</code> sont deux implémentation de <code>Seq[A]</code> avec des caractéristiques de
+performances différentes.</p>
+<ul>
+<li><code>List[A]</code> a des implémentations de <code>head</code> et <code>tail</code> plus performantes</li>
+<li><code>Vector[A]</code> a des implémentations de <code>get</code> et <code>size</code> plus performantes</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-106">
+    <section class="slide-content"><h3 id="range-set-et-map">Range, Set et Map</h3>
+<ul>
+<li><code>Range</code> est une implémentation de <code>Seq[Int]</code> qui permet de représenter une plage d&#39;entiers.</li>
+<li><code>Set[A]</code> est un <code>Iterable[A]</code> qui ne contient aucun élément dupliqué.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-107">
+    <section class="slide-content"><h3 id="gestion-des-erreurs">Gestion des erreurs</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-108">
+    <section class="slide-content"><h3 id="gestion-des-erreurs-pourquoi-">Gestion des erreurs: pourquoi ?</h3>
+<p>Prenons la méthode suivante:</p>
+<pre><code>def lighten = Barbell(load - 10, length - 20)</code></pre>
+<p>Que se pass-t-il si les valeurs de <code>load</code> ou <code>length</code> deviennent nulles ou négatives ?
+Souahite-t-on que <code>lighten</code> soit définie pour toutes les valeurs de <code>Barbell</code> ?</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-109">
+    <section class="slide-content"><h3 id="option">Option</h3>
+<p>Un moyen de modéliser le fait qu&#39;une haltère puisse ne pas avoir d&#39;haltère plus légère est
+d&#39;utiliser le type <code>Option</code>.</p>
+<pre><code>def lighten: Option[Barbell] =
+  if (load &lt;= 15 || length &lt;= 100) None
+  else Some(Barbell(load - 10; length - 20))</code></pre>
+<p>La librairie standard définie le type <code>Option[A]</code> qui modélise une potentielle valeur du type <code>A</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-110">
+    <section class="slide-content"><h3 id="option">Option</h3>
+<pre><code>def lighten: Option[Barbell] =
+  if (load &lt;= 15 || length &lt;= 100) None
+  else Some(Barbell(load - 10; length - 20))</code></pre>
+<p>Une <code>Option[A]</code> peut être soit:</p>
+<ul>
+<li><code>Some(a)</code></li>
+<li><code>None</code></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-111">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Ajouter une méthode <code>smaller</code> à notre type <code>Mat</code>:</p>
+<pre><code>def smaller: Option[Map] = ???</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-112">
+    <section class="slide-content"><h3 id="utilisations-communes-des-valeurs-optionnelles">Utilisations communes des valeurs optionnelles</h3>
+<p>On peut utiliser le pattern matching:</p>
+<pre><code>def smallerMat(mat: Mat): String =
+  mat.smaller match {
+    case Some(mat) =&gt; &quot;There is a smaller mat.&quot;
+    case None =&gt; &quot;There is no smaller mat.&quot;
+  }</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-113">
+    <section class="slide-content"><h3 id="utilisations-communes-des-valeurs-optionnelles">Utilisations communes des valeurs optionnelles</h3>
+<p>Il est possible d&#39;utiliser <code>map</code> pour transformer une valeur pleine en une autre valeur pleine,
+en ignorant le cas <code>None</code>:</p>
+<pre><code>def smallerWidth(mat: Mat): Option[Int] =
+  mat.smaller.map(smallerMat =&gt; smallerMat.width)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-114">
+    <section class="slide-content"><h3 id="utilisations-communes-des-valeurs-optionnelles">Utilisations communes des valeurs optionnelles</h3>
+<p>Il est possible d&#39;utiliser <code>fiter</code> pour transformer une valeur pleine en une valeur vide, si le
+contenu ne satisfait pas le prédicat.</p>
+<pre><code>def keepHugeMats(maybeMat: Option[Mat]): Option[Mat] =
+  mat.filter(mat =&gt; mat.width &gt; 100 &amp;&amp; mat.length &gt; 200)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-115">
+    <section class="slide-content"><h3 id="exercice">Exercice</h3>
+<p>Ecrire une fonction qui prend en paramètre un matelas, essaye de créer un matelas plus petit et
+qui retourne sont aire si elle est plus grande que 1000:</p>
+<pre><code>def smallerButLargeEnough(mat: Mat): Option[Int] = ???</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-116">
+    <section class="slide-content"><h3 id="utilisations-communes-des-valeurs-optionnelles">Utilisations communes des valeurs optionnelles</h3>
+<p>Il est possible d&#39;utiliser <code>flatMap</code> pour applatir notre résultat:</p>
+<pre><code>def smallerSmaller(mat: Mat): Option[Mat] =
+  mat.smaller.flatMap(smallerMap =&gt; smallerMat.smaller)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-117">
+    <section class="slide-content"><h3 id="s-quencer-des-calculs-en-manipulant-des-valeurs-optionnelles">Séquencer des calculs en manipulant des valeurs optionnelles</h3>
+<p>Les méthodes <code>flatMap</code> et <code>map</code> peuvent être utilisées:</p>
+<pre><code>def lightenLightenLoad(barbell: Barbell): Option[Int] =
+  barbell.lighten.flatMap { lighterBarbell =&gt;
+    lighterBarbell.lighten.map { lighterLighterBarbell =&gt;
+      lighterLighterBarbell.load
+    }
+  }</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-118">
+    <section class="slide-content"><h3 id="try">Try</h3>
+<p><code>Try[A]</code> est similaire à <code>Option[A]</code>, à l&#39;exception du fait qu&#39;en cas d&#39;erreur, il offre
+plus d&#39;information. Il peut être:</p>
+<ul>
+<li>Success(a)</li>
+<li>Failure(throwable)</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-119">
+    <section class="slide-content"><h3 id="try">Try</h3>
+<p>Tout comme <code>Option[A]</code>, <code>Try[A]</code> a accès aux fonctions <code>map</code>, <code>filter</code> ou <code>flatMap</code>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-120">
+    <section class="slide-content"><h3 id="sucre-syntaxique">Sucre syntaxique</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-121">
+    <section class="slide-content"><h3 id="interpolation-de-string">Interpolation de string</h3>
+<p>Il s&#39;agit d&#39;un mécanisme pour construire des chaînes de caractères de façon dynamique:</p>
+<pre><code>def greet(name: String) = s&quot;Hello, $name!&quot;</code></pre>
+<p>Il suffit de préfixer la valeur littérale par un <code>s</code>.
+A l&#39;intérieur de la chaîne, il siffit d&#39;utiliser <code>$</code> pour insérer une valeur.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-122">
+    <section class="slide-content"><h3 id="s-quen-age-de-map-et-flatmap-">Séquençage de <code>map</code> et <code>flatMap</code></h3>
+<p>Nous avons vu précédemment que <code>map</code> et <code>flatMap</code> sont des fonctions très utiles qui permettent de
+séquencer des calculs dans un contexte donné (valeurs optionnelles, collections).</p>
+<p>Elles sont si communes que Scala supporte une syntaxe plus pratique pour les utiliser, la <strong>for
+comprehension</strong>.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-123">
+    <section class="slide-content"><h3 id="s-quen-age-de-map-et-flatmap-">Séquençage de <code>map</code> et <code>flatMap</code></h3>
+<pre><code>def lightenLightenLoad(barbell: Barbell) =
+  barbell.lighten.flatMap { lighterBarbell =&gt;
+    lighterBarbell.lighten.map { lighterLighterBarbell =&gt;
+      lighterLighterBarbell.load
+    }
+  }</code></pre>
+<p>Peut être réécrit comme suit:</p>
+<pre><code>def lightenLightenLoad( barbell: Barbell ) = for {
+  lighterBarbell &lt;- barbell.lighten
+  lighterLighterBarbell &lt;- lighterBarbell.lighten
+} yield lighterLighterBarbell.load</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-124">
+    <section class="slide-content"><h3 id="traduction-de-for-">Traduction de <code>for</code></h3>
+<pre><code>for (x &lt;- xs) yield x + 1</code></pre>
+<p>est traduit en</p>
+<pre><code>xs.map(x =&gt; x + 1)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-125">
+    <section class="slide-content"><h3 id="traduction-de-for-">Traduction de <code>for</code></h3>
+<pre><code>for (x &lt;- xs; y &lt;- ys) yield (x, y)</code></pre>
+<p>est traduit en</p>
+<pre><code>xs.flatMap(x =&gt; for (y &lt;- ys) yield (x, y))</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-126">
+    <section class="slide-content"><h3 id="traduction-de-for-">Traduction de <code>for</code></h3>
+<pre><code>for (x &lt;- xs if x % 2 == 0) yield x + 1</code></pre>
+<p>est traduit en</p>
+<pre><code>for (x &lt;- xs.filter(x =&gt; x % 2 == 0)) yield x + 1</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-127">
+    <section class="slide-content"><h3 id="fonction-litt-rales">Fonction littérales</h3>
+<p>Dans certains cas, nous aimerions éviter de répéter le nom du paramètre littéral d&#39;une fonction.</p>
+<pre><code>val inc: Int =&gt; Int = x =&gt; x + 1</code></pre>
+<p>Il est possible de simplifier cette expression en utilisant la notation underscore:</p>
+<pre><code>val inc: Int =&gt; Int = _ + 1</code></pre>
+<p>Si la fonction prend plusieurs paramètres, il est possuble d&#39;utiliser autant de underscrores que
+de paramètres:</p>
+<pre><code>def sum(xs: Seq[Int]) = xs.foldLeft(0)(_ + _)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-128">
+    <section class="slide-content"><h3 id="tuples">Tuples</h3>
+<p>Les classes permettent de combiner plusieurs valeurs ensemble.
+Il arrive que l&#39;on souhaite aggréger plusieurs valeurs dans définir de méthode particulières.
+Dans de tels cas, définir une classe supplémentaire est quelque chose de lourd. Il est possible
+d&#39;utiliser des <strong>tuples</strong> à la place:</p>
+<pre><code>def euclideanDiv(dividend: Int, divisor: Int): (Int, Int) = {
+  val quotient = dividend / divisor
+  val remainder = dividend % divisor
+  (quotient, remainder)
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-129">
+    <section class="slide-content"><h3 id="tuples">Tuples</h3>
+<ul>
+<li>Le type <code>(T1, ..., Tn)</code> est un type de tuple à n éléments, avec le ie élément ayant le type <code>Ti</code>.</li>
+<li>La valeur <code>(t1, ..., tn)</code> est une valeur d&#39;un tuple à <code>n</code> éléments.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-130">
+    <section class="slide-content"><h3 id="tuples">Tuples</h3>
+<p>Pour récupérer le ieme élément d&#39;un tuple, on utilise la notation <code>_i</code>:</p>
+<pre><code>val qr = euclidianDiv(42, 10)
+pritln(qr._1)
+pritln(qr._2)</code></pre>
+<p>On peut aussi utiliser le <code>tuple pattern</code> pour déstructurer un tuple:</p>
+<pre><code>val (q, r) = euclidianDiv(42, 10)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-131">
+    <section class="slide-content"><h3 id="named-parameters">Named parameters</h3>
+<pre><code>Range(1, 10, 2)</code></pre>
+<p>Il est parfois compliqué de se rendre compte de ce que fait une fonction simplement en la lisant.
+Il est ainsi possible d&#39;utiliser les <code>named parameters</code> pour améliorer la lisibilité:</p>
+<pre><code>Range(start = 1, end = 10, step = 2)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-132">
+    <section class="slide-content"><h3 id="arguments-par-d-faut">Arguments par défaut</h3>
+<pre><code>def square(size: Int = 50) = Rectangle(size, size)
+val defaultSquare = square() // Rectangle(50, 50)
+val customSquare = square(100) // Rectangle(100, 100)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-133">
+    <section class="slide-content"><h3 id="param-tres-r-p-t-s">Paramètres répétés</h3>
+<pre><code>def stack(images: Image*): Image =
+  images.foldLeft(emptyImage)(_ on _)
+stack(Circle(50))
+stack(Circle(50), Rectangle(50, 50))</code></pre>
+<pre><code>val images = Seq(Circle(50), Circle(60))
+stack(images: _*)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-134">
     <section class="slide-content"><h3 id="r-f-r-nces-et-lectures-recommand-es">Référénces et lectures recommandées</h3>
 <ul>
 <li><b>Creative Scala</b> Underscore Consulting LLP.</li>
@@ -1188,7 +1550,7 @@ Artima 2010</li>
 </ul>
 </section>
   </div>
-  <div class="slide hidden author-slide" id="slide-90">
+  <div class="slide hidden author-slide" id="slide-135">
     <section class="slide-content"><div class="author">
   <h1 class="name">Thomas GIOVANNINI</h1>
     <h3 class="github">
