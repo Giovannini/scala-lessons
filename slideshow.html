@@ -374,7 +374,6 @@ div.quote p.author {
 }
 
   </style>
-    <script async src="http://localhost:35729/livereload.js"></script>
 </head>
 <body>
     <div class="progress">
@@ -393,10 +392,11 @@ div.quote p.author {
   </div>
   <div class="slide hidden" id="slide-3">
     <section class="slide-content"><h3 id="why-scala-">Why Scala ?</h3>
-<p><em>A scalable programming language is one in which the same concepts can
-describe small as well as large parts.</em></p>
-<p><strong>Martin Odersky</strong></p>
-</section>
+<div class="quote">
+  <p>A scalable programming language is one in which the same concepts can
+  describe small as well as large parts.</p>
+  <p class="author">Martin Odersky</p>
+</div></section>
   </div>
   <div class="slide hidden" id="slide-4">
     <section class="slide-content"><h3 id="scala-en-quelques-mots">Scala en quelques mots</h3>
@@ -472,10 +472,10 @@ scala&gt;</code></pre>
   </div>
   <div class="slide hidden" id="slide-13">
     <section class="slide-content"><h3 id="les-l-ments-les-plus-simple-d-un-programme-des-valeurs-lit-rales">Les éléments les plus simple d&#39;un programme: des valeurs litérales</h3>
-<p><em>Quelle est la réponse à la vie, l&#39;univers et le reste ?</em></p>
+<p><i>Quelle est la réponse à la vie, l&#39;univers et le reste ?</i></p>
 <pre><code>scala&gt; 42
 res0: Int = 42</code></pre>
-<p><em>Comment est-ce que je m&#39;appelle ?</em></p>
+<p><i>Comment est-ce que je m&#39;appelle ?</i></p>
 <pre><code>scala&gt; &quot;Thomas&quot;
 res1: String = Thomas</code></pre>
 </section>
@@ -483,38 +483,38 @@ res1: String = Thomas</code></pre>
   <div class="slide hidden" id="slide-14">
     <section class="slide-content"><h3 id="les-l-ments-les-plus-simple-d-un-programme-des-valeurs-lit-rales">Les éléments les plus simple d&#39;un programme: des valeurs litérales</h3>
 <ul>
-<li><em>42</em> et <em>&quot;Thomas&quot;</em> sont des <strong>valeurs</strong> composées d&#39;une unique <strong>valeur litérale</strong>.</li>
+<li><i>42</i> et <i>&quot;Thomas&quot;</i> sont des <b>valeurs</b> composées d&#39;une unique <b>valeur litérale</b>.</li>
 </ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-15">
     <section class="slide-content"><h3 id="composer-des-valeurs-les-op-rateurs">Composer des valeurs: les opérateurs</h3>
-<p><em>Combien font deux et trois ?</em></p>
+<p><i>Combien font deux et trois ?</i></p>
 <pre><code>scala&gt; 2 + 3
 res2: Int = 5</code></pre>
-<p><em>Quel est le résultat de la concaténation des chaînes de caractère &quot;Hello &quot; et &quot;world&quot; ?</em></p>
+<p><i>Quel est le résultat de la concaténation des chaînes de caractère &quot;Hello &quot; et &quot;world&quot; ?</i></p>
 <pre><code>scala&gt; &quot;Hello &quot; + &quot;world&quot;
 res3: String = Hello world</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="composer-des-valeurs-les-appels-de-m-thode">Composer des valeurs: les appels de méthode</h3>
-<p><em>Quelle est la taille du texte &quot;Hello world&quot; ?</em></p>
+<p><i>Quelle est la taille du texte &quot;Hello world&quot; ?</i></p>
 <pre><code>scala&gt; &quot;Hello world&quot;.size
 res4: Int = 11</code></pre>
 <ul>
-<li>Les <strong>méthodes</strong> sont appliquées à des valeurs.</li>
+<li>Les <b>méthodes</b> sont appliquées à des valeurs.</li>
 </ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="composer-des-valeurs-les-appels-de-m-thode">Composer des valeurs: les appels de méthode</h3>
-<p><em>Quel est le rang des nombres de 1 à 10 ?</em></p>
+<p><i>Quel est le rang des nombres de 1 à 10 ?</i></p>
 <pre><code>scala&gt; 1.to(10)
 res5: scala.collection.immutable.Range.Inclusive =
   Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</code></pre>
 <ul>
-<li>Les <strong>méthodes</strong> peuvent avoir des paramètres. On les fournis entre parenthèses.</li>
+<li>Les <b>méthodes</b> peuvent avoir des paramètres. On les fournis entre parenthèses.</li>
 </ul>
 </section>
   </div>
@@ -564,14 +564,13 @@ res8: doodle.core.Image.Circle = Circle(10.0)</code></pre>
     <section class="slide-content"><h3 id="manipuler-les-images">Manipuler les images</h3>
 <p>Mettre en page les images avec <code>beside</code>, <code>above</code>, <code>under</code> :</p>
 <pre><code>scala&gt; Rectangle(60, 100) beside Circle(30)
-res10: doodle.core.Image = Beside(
-  Rectangle(60.0,100.0),Circle(30.0))
+res10: doodle.core.Image = Beside(Rectangle(60.0,100.0),Circle(30.0))
 scala&gt; res10.draw</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-25">
     <section class="slide-content"><h3 id="types">Types</h3>
-<p>Toutes les valeurs ont un <strong>type</strong></p>
+<p>Toutes les valeurs ont un <b>type</b></p>
 <ul>
 <li><code>42</code> a le type <code>Int</code></li>
 <li><code>&quot;Thomas&quot;</code> a le type <code>String</code></li>
@@ -661,7 +660,7 @@ scala&gt; res10.draw</code></pre>
   (Rectangle(25, 100) fillColor Color.black)
 ).draw</code></pre>
 <ul>
-<li>Il est compliqué à <strong>lire</strong> car l&#39;expression est longue.</li>
+<li>Il est compliqué à <b>lire</b> car l&#39;expression est longue.</li>
 <li>Il est compliqué à maintenir puisque pour changer le poids de nos haltères, nous devons changer le code à deux endroits.</li>
 </ul>
 </section>
@@ -673,10 +672,10 @@ scala&gt; res10.draw</code></pre>
 val bar = Rectangle(200, 20) fillColor Color.grey
 
 (weight beside bar beside weight).draw</code></pre>
-<p>Les deux premières lignes sont des <strong>définitions de valeur</strong>.</p>
+<p>Les deux premières lignes sont des <b>définitions de valeur</b>.</p>
 <ul>
-<li>Elles introduisent des <strong>noms</strong>.</li>
-<li>Elles <strong>lient</strong> ces noms aux valeurs à droite du <code>=</code>.</li>
+<li>Elles introduisent des <b>noms</b>.</li>
+<li>Elles <b>lient</b> ces noms aux valeurs à droite du <code>=</code>.</li>
 </ul>
 </section>
   </div>
@@ -754,16 +753,16 @@ val smallWeight = weight(15)</code></pre>
   </div>
   <div class="slide hidden" id="slide-44">
     <section class="slide-content"><h3 id="exercice">Exercice</h3>
-<p>Définir une méthode <code>barbell</code> qui prend en paramètre une image de poids et qui retourne l&#39;image d&#39;une haltère avec ce poids.</p>
+<p>Définir une méthode barbell qui prend en paramètre une image de poids et qui retourne l&#39;image d&#39;une haltère avec ce poids.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-45">
     <section class="slide-content"><h3 id="un-r-sum-de-la-situation">Un résumé de la situation</h3>
 <p>Scala nous donne des moyens de:</p>
 <ul>
-<li>écrire des valeurs litérales représentant des <strong>éléments simples</strong> (<code>17</code>, <code>&quot;Hello&quot;</code>)</li>
-<li><em>combiner</em> ces valeurs (via des méthodes)</li>
-<li><em>abstraire</em> des expressions en introduisant un nom pour s&#39;y référer</li>
+<li>écrire des valeurs litérales représentant des <b>éléments simples</b> (<code>17</code>, <code>&quot;Hello&quot;</code>)</li>
+<li><b>combiner</b> ces valeurs (via des méthodes)</li>
+<li><b>abstraire</b> des expressions en introduisant un nom pour s&#39;y référer</li>
 </ul>
 <p>Ces moyens d&#39;abstractions et de composition nous donnent un pouvoir d&#39;expression pour généraliser des problèmes et les combiner.</p>
 </section>
@@ -843,7 +842,7 @@ def barbells(n: Int): Image =
 <pre><code>object Loops {
   def barbells(n: Int): Image = ???
 }</code></pre>
-<p>Ce code contient une <strong>définition d&#39;objet</strong> qui introduit le nom <code>Loops</code>.
+<p>Ce code contient une <b>définition d&#39;objet</b> qui introduit le nom <code>Loops</code>.
 <code>Loops</code> réfère à un objet qui possède une méthode: <code>barbells</code>.
 On peut accéder à la méthode <code>barbells</code> en dehors en utilisant la notation par point: <code>Loops.barbells(17)</code>.</p>
 </section>
@@ -854,7 +853,7 @@ On peut accéder à la méthode <code>barbells</code> en dehors en utilisant la 
 object Loops { ... }</code></pre>
 <pre><code>package std
 object Lists { ... }</code></pre>
-<p>Les définitions d&#39;objets peuvent être organisées en <em>packages</em>.</p>
+<p>Les définitions d&#39;objets peuvent être organisées en <b>packages</b>.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-57">
@@ -882,7 +881,7 @@ object Loops {
 object Definition {
   core.Loops.barbells(17)
 }</code></pre>
-<p>Les noms définis dans un package ne sont pas visibles dans le code défini dans un autre package. Ils doivent être <strong>entièrement qualifiés</strong> pour être résolus par le compilateur.</p>
+<p>Les noms définis dans un package ne sont pas visibles dans le code défini dans un autre package. Ils doivent être <b>entièrement qualifiés</b> pour être résolus par le compilateur.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-59">
@@ -904,7 +903,7 @@ object Definition {
   if (n == 1) unit
   else unit above barbells(n - 1)
 }</code></pre>
-<p>Les valeurs et méthodes peuvent aussi être définies dans un <strong>bloc</strong>. Ces définitions ne sont pas accessibles en dehors.</p>
+<p>Les valeurs et méthodes peuvent aussi être définies dans un <b>bloc</b>. Ces définitions ne sont pas accessibles en dehors.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-61">
@@ -1321,7 +1320,7 @@ performances différentes.</p>
 <p>Prenons la méthode suivante:</p>
 <pre><code>def lighten = Barbell(load - 10, length - 20)</code></pre>
 <p>Que se pass-t-il si les valeurs de <code>load</code> ou <code>length</code> deviennent nulles ou négatives ?
-Souhaite-t-on que <code>lighten</code> soit définie pour toutes les valeurs de <code>Barbell</code> ?</p>
+Souahite-t-on que <code>lighten</code> soit définie pour toutes les valeurs de <code>Barbell</code> ?</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-109">
@@ -1372,27 +1371,24 @@ en ignorant le cas <code>None</code>:</p>
   </div>
   <div class="slide hidden" id="slide-114">
     <section class="slide-content"><h3 id="utilisations-communes-des-valeurs-optionnelles">Utilisations communes des valeurs optionnelles</h3>
-<p>Il est possible d&#39;utiliser <code>filter</code> pour transformer une valeur pleine en une valeur vide, si le
+<p>Il est possible d&#39;utiliser <code>fiter</code> pour transformer une valeur pleine en une valeur vide, si le
 contenu ne satisfait pas le prédicat.</p>
-<pre><code>def keepHugeMats(maybeMat: Option[Mat])
-: Option[Mat] = mat.filter(mat =&gt;
-  mat.width &gt; 100 &amp;&amp; mat.length &gt; 200)</code></pre>
+<pre><code>def keepHugeMats(maybeMat: Option[Mat]): Option[Mat] =
+  mat.filter(mat =&gt; mat.width &gt; 100 &amp;&amp; mat.length &gt; 200)</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-115">
     <section class="slide-content"><h3 id="exercice">Exercice</h3>
 <p>Ecrire une fonction qui prend en paramètre un matelas, essaye de créer un matelas plus petit et
 qui retourne sont aire si elle est plus grande que 1000:</p>
-<pre><code>def smallerButLargeEnough(mat: Mat)
-: Option[Int] = ???</code></pre>
+<pre><code>def smallerButLargeEnough(mat: Mat): Option[Int] = ???</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-116">
     <section class="slide-content"><h3 id="utilisations-communes-des-valeurs-optionnelles">Utilisations communes des valeurs optionnelles</h3>
 <p>Il est possible d&#39;utiliser <code>flatMap</code> pour applatir notre résultat:</p>
 <pre><code>def smallerSmaller(mat: Mat): Option[Mat] =
-  mat.smaller.flatMap(smallerMap =&gt;
-    smallerMat.smaller)</code></pre>
+  mat.smaller.flatMap(smallerMap =&gt; smallerMat.smaller)</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-117">
@@ -1400,9 +1396,8 @@ qui retourne sont aire si elle est plus grande que 1000:</p>
 <p>Les méthodes <code>flatMap</code> et <code>map</code> peuvent être utilisées:</p>
 <pre><code>def lightenLightenLoad(barbell: Barbell): Option[Int] =
   barbell.lighten.flatMap { lighterBarbell =&gt;
-    lighterBarbell.lighten.map {
-      lighterLighterBarbell =&gt;
-        lighterLighterBarbell.load
+    lighterBarbell.lighten.map { lighterLighterBarbell =&gt;
+      lighterLighterBarbell.load
     }
   }</code></pre>
 </section>
@@ -1446,9 +1441,8 @@ comprehension</strong>.</p>
     <section class="slide-content"><h3 id="s-quen-age-de-map-et-flatmap-">Séquençage de <code>map</code> et <code>flatMap</code></h3>
 <pre><code>def lightenLightenLoad(barbell: Barbell) =
   barbell.lighten.flatMap { lighterBarbell =&gt;
-    lighterBarbell.lighten.map {
-      lighterLighterBarbell =&gt;
-        lighterLighterBarbell.load
+    lighterBarbell.lighten.map { lighterLighterBarbell =&gt;
+      lighterLighterBarbell.load
     }
   }</code></pre>
 <p>Peut être réécrit comme suit:</p>
@@ -1532,11 +1526,8 @@ Il est ainsi possible d&#39;utiliser les <code>named parameters</code> pour amé
   <div class="slide hidden" id="slide-132">
     <section class="slide-content"><h3 id="arguments-par-d-faut">Arguments par défaut</h3>
 <pre><code>def square(size: Int = 50) = Rectangle(size, size)
-val defaultSquare = square()
-// Rectangle(50, 50)
-
-val customSquare = square(100)
-// Rectangle(100, 100)</code></pre>
+val defaultSquare = square() // Rectangle(50, 50)
+val customSquare = square(100) // Rectangle(100, 100)</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-133">
@@ -1550,29 +1541,16 @@ stack(images: _*)</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-134">
-    <section class="slide-content"><h1 id="projet">Projet</h1>
-<h2 id="le-jeu-de-la-vie">Le jeu de la vie</h2>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-135">
-    <section class="slide-content"><h3 id="le-jeu-de-la-vie">Le jeu de la vie</h3>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life</a></li>
-</ul>
-<p><code>git clone git@github.com:Giovannini/gameoflife.git</code></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-136">
     <section class="slide-content"><h3 id="r-f-r-nces-et-lectures-recommand-es">Référénces et lectures recommandées</h3>
 <ul>
-<li><strong>Creative Scala</strong> Underscore Consulting LLP.</li>
-<li><strong>Functional Programming in Scala</strong> Paul Chiusano and Rúnar Bjarnason. Manning 2013.</li>
-<li><strong>Programming in Scala</strong> Martin Odersky, Lex Spoon and Bill Venners.
+<li><b>Creative Scala</b> Underscore Consulting LLP.</li>
+<li><b>Functional Programming in Scala</b> Paul Chiusano and Rúnar Bjarnason. Manning 2013.</li>
+<li><b>Programming in Scala</b> Martin Odersky, Lex Spoon and Bill Venners.
 Artima 2010</li>
 </ul>
 </section>
   </div>
-  <div class="slide hidden author-slide" id="slide-137">
+  <div class="slide hidden author-slide" id="slide-135">
     <section class="slide-content"><div class="author">
   <h1 class="name">Thomas GIOVANNINI</h1>
     <h3 class="github">

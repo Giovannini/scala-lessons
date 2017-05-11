@@ -21,11 +21,11 @@ TODO
 --
 
 ### Why Scala ?
-<div class="quote">
-  <p>A scalable programming language is one in which the same concepts can
-  describe small as well as large parts.</p>
-  <p class="author">Martin Odersky</p>
-</div>
+*A scalable programming language is one in which the same concepts can
+describe small as well as large parts.*
+
+**Martin Odersky**
+
 
 --
 
@@ -87,7 +87,8 @@ class ExprParser extends RegexParsers {
 La façon la plus rapide d'essayer Scala est via la REPL:
 ```
 $ sbt console
-Welcome to Scala 2.11.8 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_65).
+Welcome to Scala 2.11.8 (Java HotSpot(TM) 64-Bit
+Server VM, Java 1.8.0_65).
 Type in expressions for evaluation. Or try :help.
 
 scala>
@@ -107,13 +108,13 @@ scala>
 --
 
 ### Les éléments les plus simple d'un programme: des valeurs litérales
-<i>Quelle est la réponse à la vie, l'univers et le reste ?</i>
+*Quelle est la réponse à la vie, l'univers et le reste ?*
 ```
 scala> 42
 res0: Int = 42
 ```
 
-<i>Comment est-ce que je m'appelle ?</i>
+*Comment est-ce que je m'appelle ?*
 ```
 scala> "Thomas"
 res1: String = Thomas
@@ -122,18 +123,18 @@ res1: String = Thomas
 --
 
 ### Les éléments les plus simple d'un programme: des valeurs litérales
-- <i>42</i> et <i>"Thomas"</i> sont des <b>valeurs</b> composées d'une unique <b>valeur litérale</b>.
+- *42* et *"Thomas"* sont des **valeurs** composées d'une unique **valeur litérale**.
 
 --
 
 ### Composer des valeurs: les opérateurs
-<i>Combien font deux et trois ?</i>
+*Combien font deux et trois ?*
 ```
 scala> 2 + 3
 res2: Int = 5
 ```
 
-<i>Quel est le résultat de la concaténation des chaînes de caractère "Hello " et "world" ?</i>
+*Quel est le résultat de la concaténation des chaînes de caractère "Hello " et "world" ?*
 ```
 scala> "Hello " + "world"
 res3: String = Hello world
@@ -142,23 +143,23 @@ res3: String = Hello world
 --
 
 ### Composer des valeurs: les appels de méthode
-<i>Quelle est la taille du texte "Hello world" ?</i>
+*Quelle est la taille du texte "Hello world" ?*
 ```
 scala> "Hello world".size
 res4: Int = 11
 ```
-- Les <b>méthodes</b> sont appliquées à des valeurs.
+- Les **méthodes** sont appliquées à des valeurs.
 
 --
 
 ### Composer des valeurs: les appels de méthode
-<i>Quel est le rang des nombres de 1 à 10 ?</i>
+*Quel est le rang des nombres de 1 à 10 ?*
 ```
 scala> 1.to(10)
 res5: scala.collection.immutable.Range.Inclusive =
   Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
-- Les <b>méthodes</b> peuvent avoir des paramètres. On les fournis entre parenthèses.
+- Les **méthodes** peuvent avoir des paramètres. On les fournis entre parenthèses.
 
 --
 
@@ -214,14 +215,15 @@ scala> Rectangle(30, 50).draw
 Mettre en page les images avec `beside`, `above`, `under` :
 ```
 scala> Rectangle(60, 100) beside Circle(30)
-res10: doodle.core.Image = Beside(Rectangle(60.0,100.0),Circle(30.0))
+res10: doodle.core.Image = Beside(
+  Rectangle(60.0,100.0),Circle(30.0))
 scala> res10.draw
 ```
 
 --
 
 ### Types
-Toutes les valeurs ont un <b>type</b>
+Toutes les valeurs ont un **type**
 - `42` a le type `Int`
 - `"Thomas"` a le type `String`
 
@@ -313,7 +315,7 @@ Considérons le programme suivant:
 ).draw
 ```
 
-- Il est compliqué à <b>lire</b> car l'expression est longue.
+- Il est compliqué à **lire** car l'expression est longue.
 - Il est compliqué à maintenir puisque pour changer le poids de nos haltères, nous devons changer le code à deux endroits.
 
 --
@@ -326,9 +328,9 @@ val bar = Rectangle(200, 20) fillColor Color.grey
 
 (weight beside bar beside weight).draw
 ```
-Les deux premières lignes sont des <b>définitions de valeur</b>.
-- Elles introduisent des <b>noms</b>.
-- Elles <b>lient</b> ces noms aux valeurs à droite du `=`.
+Les deux premières lignes sont des **définitions de valeur**.
+- Elles introduisent des **noms**.
+- Elles **lient** ces noms aux valeurs à droite du `=`.
 
 --
 
@@ -419,15 +421,15 @@ Le type des paramètres doit être donné explicitement.
 --
 
 ### Exercice
-Définir une méthode barbell qui prend en paramètre une image de poids et qui retourne l'image d'une haltère avec ce poids.
+Définir une méthode `barbell` qui prend en paramètre une image de poids et qui retourne l'image d'une haltère avec ce poids.
 
 --
 
 ### Un résumé de la situation
 Scala nous donne des moyens de:
-- écrire des valeurs litérales représentant des <b>éléments simples</b> (`17`, `"Hello"`)
-- <b>combiner</b> ces valeurs (via des méthodes)
-- <b>abstraire</b> des expressions en introduisant un nom pour s'y référer
+- écrire des valeurs litérales représentant des **éléments simples** (`17`, `"Hello"`)
+- *combiner* ces valeurs (via des méthodes)
+- *abstraire* des expressions en introduisant un nom pour s'y référer
 
 Ces moyens d'abstractions et de composition nous donnent un pouvoir d'expression pour généraliser des problèmes et les combiner.
 
@@ -520,7 +522,7 @@ object Loops {
   def barbells(n: Int): Image = ???
 }
 ```
-Ce code contient une <b>définition d'objet</b> qui introduit le nom `Loops`.
+Ce code contient une **définition d'objet** qui introduit le nom `Loops`.
 `Loops` réfère à un objet qui possède une méthode: `barbells`.
 On peut accéder à la méthode `barbells` en dehors en utilisant la notation par point: `Loops.barbells(17)`.
 
@@ -536,7 +538,7 @@ object Loops { ... }
 package std
 object Lists { ... }
 ```
-Les définitions d'objets peuvent être organisées en <b>packages</b>.
+Les définitions d'objets peuvent être organisées en *packages*.
 
 --
 
@@ -572,7 +574,7 @@ object Definition {
   core.Loops.barbells(17)
 }
 ```
-Les noms définis dans un package ne sont pas visibles dans le code défini dans un autre package. Ils doivent être <b>entièrement qualifiés</b> pour être résolus par le compilateur.
+Les noms définis dans un package ne sont pas visibles dans le code défini dans un autre package. Ils doivent être **entièrement qualifiés** pour être résolus par le compilateur.
 
 --
 
@@ -598,7 +600,7 @@ def barbells(n: Int): Image = {
   else unit above barbells(n - 1)
 }
 ```
-Les valeurs et méthodes peuvent aussi être définies dans un <b>bloc</b>. Ces définitions ne sont pas accessibles en dehors.
+Les valeurs et méthodes peuvent aussi être définies dans un **bloc**. Ces définitions ne sont pas accessibles en dehors.
 
 --
 
@@ -1062,7 +1064,7 @@ Prenons la méthode suivante:
 def lighten = Barbell(load - 10, length - 20)
 ```
 Que se pass-t-il si les valeurs de `load` ou `length` deviennent nulles ou négatives ?
-Souahite-t-on que `lighten` soit définie pour toutes les valeurs de `Barbell` ?
+Souhaite-t-on que `lighten` soit définie pour toutes les valeurs de `Barbell` ?
 
 --
 
@@ -1116,25 +1118,28 @@ def smallerWidth(mat: Mat): Option[Int] =
 ```
 --
 ### Utilisations communes des valeurs optionnelles
-Il est possible d'utiliser `fiter` pour transformer une valeur pleine en une valeur vide, si le
+Il est possible d'utiliser `filter` pour transformer une valeur pleine en une valeur vide, si le
 contenu ne satisfait pas le prédicat.
 ```
-def keepHugeMats(maybeMat: Option[Mat]): Option[Mat] =
-  mat.filter(mat => mat.width > 100 && mat.length > 200)
+def keepHugeMats(maybeMat: Option[Mat])
+: Option[Mat] = mat.filter(mat =>
+  mat.width > 100 && mat.length > 200)
 ```
 --
 ### Exercice
 Ecrire une fonction qui prend en paramètre un matelas, essaye de créer un matelas plus petit et
 qui retourne sont aire si elle est plus grande que 1000:
 ```
-def smallerButLargeEnough(mat: Mat): Option[Int] = ???
+def smallerButLargeEnough(mat: Mat)
+: Option[Int] = ???
 ```
 --
 ### Utilisations communes des valeurs optionnelles
 Il est possible d'utiliser `flatMap` pour applatir notre résultat:
 ```
 def smallerSmaller(mat: Mat): Option[Mat] =
-  mat.smaller.flatMap(smallerMap => smallerMat.smaller)
+  mat.smaller.flatMap(smallerMap =>
+    smallerMat.smaller)
 ```
 --
 ### Séquencer des calculs en manipulant des valeurs optionnelles
@@ -1142,8 +1147,9 @@ Les méthodes `flatMap` et `map` peuvent être utilisées:
 ```
 def lightenLightenLoad(barbell: Barbell): Option[Int] =
   barbell.lighten.flatMap { lighterBarbell =>
-    lighterBarbell.lighten.map { lighterLighterBarbell =>
-      lighterLighterBarbell.load
+    lighterBarbell.lighten.map {
+      lighterLighterBarbell =>
+        lighterLighterBarbell.load
     }
   }
 ```
@@ -1178,8 +1184,9 @@ comprehension**.
 ```
 def lightenLightenLoad(barbell: Barbell) =
   barbell.lighten.flatMap { lighterBarbell =>
-    lighterBarbell.lighten.map { lighterLighterBarbell =>
-      lighterLighterBarbell.load
+    lighterBarbell.lighten.map {
+      lighterLighterBarbell =>
+        lighterLighterBarbell.load
     }
   }
 ```
@@ -1275,8 +1282,11 @@ Range(start = 1, end = 10, step = 2)
 ### Arguments par défaut
 ```
 def square(size: Int = 50) = Rectangle(size, size)
-val defaultSquare = square() // Rectangle(50, 50)
-val customSquare = square(100) // Rectangle(100, 100)
+val defaultSquare = square()
+// Rectangle(50, 50)
+
+val customSquare = square(100)
+// Rectangle(100, 100)
 ```
 --
 ### Paramètres répétés
@@ -1293,8 +1303,20 @@ stack(images: _*)
 ```
 --
 
+# Projet
+## Le jeu de la vie
+
+--
+
+### Le jeu de la vie
+* https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+`git clone git@github.com:Giovannini/gameoflife.git`
+
+--
+
 ### Référénces et lectures recommandées
-- <b>Creative Scala</b> Underscore Consulting LLP.
-- <b>Functional Programming in Scala</b> Paul Chiusano and Rúnar Bjarnason. Manning 2013.
-- <b>Programming in Scala</b> Martin Odersky, Lex Spoon and Bill Venners.
+- **Creative Scala** Underscore Consulting LLP.
+- **Functional Programming in Scala** Paul Chiusano and Rúnar Bjarnason. Manning 2013.
+- **Programming in Scala** Martin Odersky, Lex Spoon and Bill Venners.
 Artima 2010
